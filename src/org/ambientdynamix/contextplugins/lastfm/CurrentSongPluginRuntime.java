@@ -60,9 +60,8 @@ public class CurrentSongPluginRuntime extends AutoReactiveContextPluginRuntime
 	@Override
 	public void handleContextRequest(UUID requestId, String contextInfoType) 
 	{
-		checkForCurrentSong("tvluke");
 		SecuredContextInfo aci= new SecuredContextInfo(new CurrentSongContextInfo(), PrivacyRiskLevel.LOW);
-		sendContextEvent(requestId, aci, 1000);
+		sendContextEvent(requestId, aci, 120000);
 		context=this;
 	}
 
