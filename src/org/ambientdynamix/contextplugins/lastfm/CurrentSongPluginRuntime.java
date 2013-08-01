@@ -193,10 +193,11 @@ public class CurrentSongPluginRuntime extends AutoReactiveContextPluginRuntime
                 		Log.d(TAG, grandchild.getText());
                 		title=grandchild.getText();
                 	}
-                	if(grandchild.getName().equals("durartion"))
+                	if(grandchild.getName().equals("duration"))
                 	{
                 		if(!grandchild.getText().equals(""))
                 		{
+                			Log.d(TAG, grandchild.getText());
                 			duration = Integer.parseInt(grandchild.getText());
                 		}
                 	}
