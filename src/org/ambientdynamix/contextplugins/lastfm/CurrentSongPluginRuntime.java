@@ -61,12 +61,14 @@ public class CurrentSongPluginRuntime extends AutoReactiveContextPluginRuntime
 	@Override
 	public void handleContextRequest(UUID requestId, String contextInfoType) 
 	{
+		Log.d(TAG, "y");
 		context=this;
 	}
 
 	@Override
 	public void handleConfiguredContextRequest(UUID requestId, String contextInfoType, Bundle scanConfig) 
 	{
+		Log.d(TAG, "x");
 		String actiontype = scanConfig.getString("action_type");
 		if(actiontype.equals("currentsong"))
 		{
