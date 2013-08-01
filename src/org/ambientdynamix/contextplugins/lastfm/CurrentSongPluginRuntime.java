@@ -144,7 +144,7 @@ public class CurrentSongPluginRuntime extends AutoReactiveContextPluginRuntime
 	private static Song songinfo(String mbid) 
 	{
 		Song x=null;
-		String url = "http://ws.audioscrobbler.com/2.0/?method=track.getInfo&api_key="+Constants.API_KEY+"+&"+mbid;
+		String url = "http://ws.audioscrobbler.com/2.0/?method=track.getInfo&api_key="+Constants.API_KEY+"+&mbid="+mbid;
 		final SAXBuilder builder = new SAXBuilder();
 		try 
 		{
@@ -162,6 +162,7 @@ public class CurrentSongPluginRuntime extends AutoReactiveContextPluginRuntime
                 while(grandchildrenIterator.hasNext())
                 {
                 	Element grandchild = grandchildrenIterator.next();
+                	Log.d(TAG, ""+grandchild.getName());
                 	if(grandchild.getName().equals("name"))
                 	{
                 		Log.d(TAG, grandchild.getText());
