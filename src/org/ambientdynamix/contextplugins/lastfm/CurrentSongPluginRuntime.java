@@ -214,10 +214,7 @@ public class CurrentSongPluginRuntime extends AutoReactiveContextPluginRuntime
                 	}
                 }
             }
-			if(!title.equals(""))
-			{
-				x=new Song(title, artist, duration, album, tags);
-			}
+			x=new Song(title, artist, duration, album, tags);
 		}
 		catch (Exception e)
 		{
