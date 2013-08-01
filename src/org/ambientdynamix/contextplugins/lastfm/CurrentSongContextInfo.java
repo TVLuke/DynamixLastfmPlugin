@@ -15,12 +15,7 @@ public class CurrentSongContextInfo implements IContextInfo, ICurrentSongContext
 {
 
 	private final String TAG = "TIMEPLUGIN";
-	
-	String title;
-	String artist;
-	int length;
-	String album;
-	String tags;
+	Song song;
 	
 	public static Parcelable.Creator<CurrentSongContextInfo> CREATOR = new Parcelable.Creator<CurrentSongContextInfo>() 
 			{
@@ -37,16 +32,12 @@ public class CurrentSongContextInfo implements IContextInfo, ICurrentSongContext
 		
 	CurrentSongContextInfo()
 	{
-
+		song = CurrentSongPluginRuntime.checkForCurrentSong("tvluke");
 	}
 	
 	public CurrentSongContextInfo(Parcel in) 
 	{
-		String title = in.readString();
-		String artist = in.readString();
-		int length = in.readInt();
-		String album = in.readString();
-		String tags = in.readString();
+		song=in.readParcelable(getClass().getClassLoader());
 	}
 
 	@Override
@@ -65,11 +56,7 @@ public class CurrentSongContextInfo implements IContextInfo, ICurrentSongContext
 	@Override
 	public void writeToParcel(Parcel out, int flags) 
 	{
-		out.writeString(title);
-		out.writeString(artist);
-		out.writeInt(length);
-		out.writeString(album);
-		out.writeString(tags);
+		out.writeParcelable(this.song, flags);
 	}
 
 	@Override
@@ -90,15 +77,15 @@ public class CurrentSongContextInfo implements IContextInfo, ICurrentSongContext
 		String result="";
 		if (format.equalsIgnoreCase("text/plain"))
 		{
-			return "";
+			return song.getTitle();
 		}
 		else if (format.equalsIgnoreCase("XML"))
 		{
-			return "";
+			return song.getTitle();
 		}
 		else if (format.equalsIgnoreCase("JSON"))
 		{
-			return "";
+			return song.getTitle();
 		}
 		else
 			return null;
@@ -117,18 +104,18 @@ public class CurrentSongContextInfo implements IContextInfo, ICurrentSongContext
 	@Override
 	public String getName() 
 	{
-		return title;
+		return song.getTitle();
 	}
 
 	@Override
 	public String getArtist() 
 	{
-		return artist;
+		return song.getArtist();
 	}
 
 	@Override
 	public int getLength() 
 	{
-		return length;
+		return song.getLength();
 	}
 }

@@ -122,12 +122,33 @@ public class CurrentSongPluginRuntime extends AutoReactiveContextPluginRuntime
                 	{
                 		List<Element> ggclist = grandchild.getChildren();
                 		Iterator<Element> ggcit = ggclist.iterator();
+                		String artist="";
+                		String name="";
                 		while(ggcit.hasNext())
                 		{
                 			Element ggc = ggcit.next();
+                			if(ggc.getName().equals("artist"))
+                			{
+                				artist=ggc.getText();
+                			}
+                			if(ggc.getName().equals("name"))
+                			{
+                				name=ggc.getText();
+                			}
                 			if(ggc.getName().equals("mbid"))
                 			{
                 				x = songinfo(ggc.getText());
+                			}
+                			if(ggc.getName().equals("album"))
+                			{
+                				if(x!=null)
+                				{
+                					
+                				}
+                				else
+                				{
+                					x = new Song(artist, name, 0, ggc.getText(), "");
+                				}
                 			}
                 		}
                 	}
@@ -145,6 +166,11 @@ public class CurrentSongPluginRuntime extends AutoReactiveContextPluginRuntime
 	{
 		Song x=null;
 		String url = "http://ws.audioscrobbler.com/2.0/?method=track.getInfo&api_key="+Constants.API_KEY+"+&mbid="+mbid;
+		String title="";
+		String artist="";
+		String album="";
+		int duration=0;
+		String tags="";
 		final SAXBuilder builder = new SAXBuilder();
 		try 
 		{
@@ -158,7 +184,6 @@ public class CurrentSongPluginRuntime extends AutoReactiveContextPluginRuntime
                 Log.d(TAG, ""+child.getName());
                 List<Element> grandchildren = child.getChildren();
                 Iterator<Element> grandchildrenIterator = grandchildren.iterator();
-                boolean gotit=false;
                 while(grandchildrenIterator.hasNext())
                 {
                 	Element grandchild = grandchildrenIterator.next();
@@ -166,9 +191,33 @@ public class CurrentSongPluginRuntime extends AutoReactiveContextPluginRuntime
                 	if(grandchild.getName().equals("name"))
                 	{
                 		Log.d(TAG, grandchild.getText());
+                		title=grandchild.getText();
+                	}
+                	if(grandchild.getName().equals("durartion"))
+                	{
+                		if(!grandchild.getText().equals(""))
+                		{
+                			duration = Integer.parseInt(grandchild.getText());
+                		}
+                	}
+                	if(grandchild.getName().equals("artist"))
+                	{
+                		artist = grandchild.getChild("artist").getText();
+                	}
+                	if(grandchild.getName().equals("album"))
+                	{
+                		album = grandchild.getChild("title").getText();
+                	}
+                	if(grandchild.getName().equals("toptags"))
+                	{
+                		Log.d(TAG, "toptags...");
                 	}
                 }
             }
+			if(!title.equals(""))
+			{
+				x=new Song(title, artist, duration, album, tags);
+			}
 		}
 		catch (Exception e)
 		{
