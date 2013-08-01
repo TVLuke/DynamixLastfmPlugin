@@ -203,15 +203,25 @@ public class CurrentSongPluginRuntime extends AutoReactiveContextPluginRuntime
                 	}
                 	if(grandchild.getName().equals("artist"))
                 	{
+                		Log.d(TAG, grandchild.getText());
                 		artist = grandchild.getChild("artist").getText();
                 	}
                 	if(grandchild.getName().equals("album"))
                 	{
+                		Log.d(TAG, grandchild.getText());
                 		album = grandchild.getChild("title").getText();
                 	}
                 	if(grandchild.getName().equals("toptags"))
                 	{
+                		Log.d(TAG, grandchild.getText());
                 		Log.d(TAG, "toptags...");
+                		List<Element> ggclist = grandchild.getChildren();
+                		Iterator<Element> ggcit = ggclist.iterator();
+                		while(ggcit.hasNext())
+                		{
+                			Element ggg = ggcit.next();
+                			tags=tags+" "+ggg.getChild("name").getText();
+                		}
                 	}
                 }
             }
