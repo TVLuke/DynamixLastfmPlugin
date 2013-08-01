@@ -219,6 +219,7 @@ public class CurrentSongPluginRuntime extends AutoReactiveContextPluginRuntime
 		}
 		catch (Exception e)
 		{
+			Log.d(TAG, "-->");
 			Log.e(TAG, "exception: "+e.getMessage());
 		}
 		return x;
