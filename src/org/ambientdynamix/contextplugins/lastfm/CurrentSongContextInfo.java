@@ -77,11 +77,14 @@ public class CurrentSongContextInfo implements IContextInfo, ICurrentSongContext
 		String result="";
 		if (format.equalsIgnoreCase("text/plain"))
 		{
-			return song.getTitle();
+			return song.getArtist()+" - "+song.getTitle();
 		}
 		else if (format.equalsIgnoreCase("XML"))
 		{
-			return song.getTitle();
+			return "<track>\n"+
+					"<name>"+song.getTitle()+"</name>\n"+
+					"<artist>"+song.getArtist()+"</artist>\n"+
+					"</track>";
 		}
 		else if (format.equalsIgnoreCase("JSON"))
 		{

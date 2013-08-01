@@ -147,7 +147,7 @@ public class CurrentSongPluginRuntime extends AutoReactiveContextPluginRuntime
                 				}
                 				else
                 				{
-                					x = new Song(artist, name, 0, ggc.getText(), "");
+                					x = new Song(name, artist, 0, ggc.getText(), "");
                 				}
                 			}
                 		}
