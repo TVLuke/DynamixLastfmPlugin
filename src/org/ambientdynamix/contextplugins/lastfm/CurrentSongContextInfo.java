@@ -81,17 +81,29 @@ public class CurrentSongContextInfo implements IContextInfo, ICurrentSongContext
 		}
 		else if (format.equalsIgnoreCase("XML"))
 		{
-			return "<track>\n"+
-					"<name>"+song.getTitle()+"</name>\n"+
-					"<artist>"+song.getArtist()+"</artist>\n"+
-					"</track>";
+			result = "<track>\n"+
+					"  <name>"+song.getTitle()+"</name>\n"+
+					"  <artist>"+song.getArtist()+"</artist>\n"+
+					"  <duration>"+song.getLength()+"</duration>\n"+
+					"  <album>"+song.getAlbum()+"</album>\n";
+			String[] tags = song.getTags();
+			result=result+"  <toptags>\n";
+			for(int i=0; i<tags.length; i++)
+			{
+				result=result+"    <tag>\n";
+				result=result+"      <name>"+tags[i]+"</name>\n";
+				result=result+"    </tag>\n";
+			}
+			result=result+"  </toptags>\n";
+			result = result+"</track>\n";
+			return result;
 		}
 		else if (format.equalsIgnoreCase("JSON"))
 		{
 			return song.getTitle();
 		}
 		else
-			return null;
+			return result;
 	}
 
 	@Override

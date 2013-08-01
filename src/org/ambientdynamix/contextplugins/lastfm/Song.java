@@ -1,5 +1,7 @@
 package org.ambientdynamix.contextplugins.lastfm;
 
+import java.util.StringTokenizer;
+
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -74,5 +76,28 @@ public class Song  implements Parcelable
 	public int getLength() 
 	{
 		return length;
+	}
+	
+	public String getAlbum()
+	{
+		return album;
+	}
+
+	public String[] getTags() 
+	{
+		StringTokenizer tk = new StringTokenizer(tags, " ");
+		String[] result= new String[0];
+		if(tk.countTokens()>0)
+		{
+			result=new String[tk.countTokens()];
+		}
+		int count=0;
+		while(tk.hasMoreElements())
+		{
+			String cc = tk.nextToken();
+			result[count]=cc;
+			count++;
+		}
+		return result;
 	}
 }
