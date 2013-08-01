@@ -21,6 +21,7 @@ public class CurrentSongPluginRuntime extends AutoReactiveContextPluginRuntime
 {
 	private final static String TAG = "LSTFM PLUGIN";
 	private static CurrentSongPluginRuntime context;
+	public static String lastfmaccount="";
 
 	@Override
 	public void start() 
