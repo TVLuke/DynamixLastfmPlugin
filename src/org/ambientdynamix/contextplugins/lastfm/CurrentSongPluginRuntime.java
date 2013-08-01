@@ -61,14 +61,20 @@ public class CurrentSongPluginRuntime extends AutoReactiveContextPluginRuntime
 	@Override
 	public void handleContextRequest(UUID requestId, String contextInfoType) 
 	{
-		SecuredContextInfo aci= new SecuredContextInfo(new CurrentSongContextInfo(), PrivacyRiskLevel.LOW);
-		sendContextEvent(requestId, aci, 180000);
 		context=this;
 	}
 
 	@Override
 	public void handleConfiguredContextRequest(UUID requestId, String contextInfoType, Bundle scanConfig) 
 	{
+		String actiontype = scanConfig.getString("action_type");
+		if(actiontype.equals("currentsong"))
+		{
+			String username = scanConfig.getString("username");
+			SecuredContextInfo aci= new SecuredContextInfo(new CurrentSongContextInfo(username), PrivacyRiskLevel.LOW);
+			sendContextEvent(requestId, aci, 180000);
+			context=this;
+		}
 		handleContextRequest(requestId, contextInfoType);
 		context=this;
 	}

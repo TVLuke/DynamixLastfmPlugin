@@ -30,9 +30,9 @@ public class CurrentSongContextInfo implements IContextInfo, ICurrentSongContext
 			}
 		};
 		
-	CurrentSongContextInfo()
+	CurrentSongContextInfo(String username)
 	{
-		song = CurrentSongPluginRuntime.checkForCurrentSong("tvluke");
+		song = CurrentSongPluginRuntime.checkForCurrentSong(username);
 	}
 	
 	public CurrentSongContextInfo(Parcel in) 
