@@ -61,7 +61,7 @@ public class CurrentSongPluginRuntime extends AutoReactiveContextPluginRuntime
 	public void handleContextRequest(UUID requestId, String contextInfoType) 
 	{
 		SecuredContextInfo aci= new SecuredContextInfo(new CurrentSongContextInfo(), PrivacyRiskLevel.LOW);
-		sendContextEvent(requestId, aci, 120000);
+		sendContextEvent(requestId, aci, 180000);
 		context=this;
 	}
 
