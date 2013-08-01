@@ -1,4 +1,4 @@
-package org.ambientdynamix.contextplugins.currentsong;
+package org.ambientdynamix.contextplugins.lastfm;
 
 public class Constants {
 

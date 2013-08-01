@@ -1,4 +1,4 @@
-package org.ambientdynamix.contextplugins.currentsong;
+package org.ambientdynamix.contextplugins.lastfm;
 
 import java.util.Iterator;
 import java.util.List;

@@ -1,10 +1,10 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: LastFM Plugin
-Bundle-SymbolicName: org.ambientdynamix.contextplugins.currentsong
+Bundle-SymbolicName: org.ambientdynamix.contextplugins.lastfm
 Bundle-Version: 1.0.0
 Bundle-ClassPath: .,lib/jdom-2.0.5dexed.jar
-Export-Package: org.ambientdynamix.contextplugins.currentsong
+Export-Package: org.ambientdynamix.contextplugins.lastfm
 Import-Package: org.ambientdynamix.api.application,
  org.ambientdynamix.api.contextplugin,
  org.ambientdynamix.api.contextplugin.security

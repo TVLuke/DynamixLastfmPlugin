@@ -1,4 +1,4 @@
-package org.ambientdynamix.contextplugins.currentsong;
+package org.ambientdynamix.contextplugins.lastfm;
 
 import java.util.Date;
 import java.util.HashSet;
