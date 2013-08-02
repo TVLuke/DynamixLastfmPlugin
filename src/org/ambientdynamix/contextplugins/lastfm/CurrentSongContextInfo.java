@@ -32,7 +32,7 @@ public class CurrentSongContextInfo implements IContextInfo, ICurrentSongContext
 		
 	CurrentSongContextInfo(String username)
 	{
-		song = CurrentSongPluginRuntime.checkForCurrentSong(username);
+		song = LastFMPluginRuntime.checkForCurrentSong(username);
 	}
 	
 	public CurrentSongContextInfo(Parcel in) 

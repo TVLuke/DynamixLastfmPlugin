@@ -17,10 +17,10 @@ import android.os.Bundle;
 import android.util.Log;
 
 
-public class CurrentSongPluginRuntime extends AutoReactiveContextPluginRuntime
+public class LastFMPluginRuntime extends AutoReactiveContextPluginRuntime
 {
 	private final static String TAG = "LSTFM PLUGIN";
-	private static CurrentSongPluginRuntime context;
+	private static LastFMPluginRuntime context;
 	public static String lastfmaccount="";
 
 	@Override

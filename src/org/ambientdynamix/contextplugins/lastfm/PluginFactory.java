@@ -21,6 +21,6 @@ public class PluginFactory extends ContextPluginRuntimeFactory
 {
 	public PluginFactory() 
 	{
-		super(CurrentSongPluginRuntime.class, null, null);
+		super(LastFMPluginRuntime.class, null, LastFMPluginConfigurationActivity.class);
 	}
 }
