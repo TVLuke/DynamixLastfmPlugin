@@ -13,6 +13,7 @@ import org.jdom2.input.SAXBuilder;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -61,7 +62,20 @@ public class LastFMPluginRuntime extends AutoReactiveContextPluginRuntime
 	@Override
 	public void handleContextRequest(UUID requestId, String contextInfoType) 
 	{
-		Log.d(TAG, "y");
+		if(contextInfoType.equals("org.ambientdynamix.contextplugins.context.info.environment.currentsong"))
+		{
+			SharedPreferences prefs = getSecuredContext().getSharedPreferences(Constants.PREFS, 0);
+			if(prefs!=null)
+			{
+				String username = prefs.getString(Constants.USERNAME, "");
+				SecuredContextInfo aci= new SecuredContextInfo(new CurrentSongContextInfo(username), PrivacyRiskLevel.LOW);
+				sendContextEvent(requestId, aci, 180000);
+			}
+			else
+			{
+				Log.d(TAG, "prefs are null, this is not working...");
+			}
+		}
 		context=this;
 	}
 
