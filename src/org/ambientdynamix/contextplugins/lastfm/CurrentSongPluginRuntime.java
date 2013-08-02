@@ -77,7 +77,6 @@ public class CurrentSongPluginRuntime extends AutoReactiveContextPluginRuntime
 			sendContextEvent(requestId, aci, 180000);
 			context=this;
 		}
-		handleContextRequest(requestId, contextInfoType);
 		context=this;
 	}
 
@@ -155,7 +154,7 @@ public class CurrentSongPluginRuntime extends AutoReactiveContextPluginRuntime
                 				}
                 				else
                 				{
-                					x = new Song(name, artist, 0, ggc.getText(), "");
+                					x = new Song(name, artist, -999, ggc.getText(), "");
                 				}
                 			}
                 		}
@@ -206,13 +205,15 @@ public class CurrentSongPluginRuntime extends AutoReactiveContextPluginRuntime
                 		if(!grandchild.getText().equals(""))
                 		{
                 			Log.d(TAG, grandchild.getText());
+                			Log.d(TAG, "trytoparse");
                 			duration = Integer.parseInt(grandchild.getText());
+                			Log.d(TAG, "duration="+duration); 
                 		}
                 	}
                 	if(grandchild.getName().equals("artist"))
                 	{
                 		Log.d(TAG, grandchild.getText());
-                		artist = grandchild.getChild("artist").getText();
+                		artist = grandchild.getChild("name").getText();
                 	}
                 	if(grandchild.getName().equals("album"))
                 	{
