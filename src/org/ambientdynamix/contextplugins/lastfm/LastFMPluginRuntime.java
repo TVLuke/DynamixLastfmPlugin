@@ -99,7 +99,7 @@ public class LastFMPluginRuntime extends AutoReactiveContextPluginRuntime
 	public void init(PowerScheme arg0, ContextPluginSettings arg1) throws Exception 
 	{
 		Log.d(TAG, "init");
-		settings=this.getParentPlugin().getContextPluginSettings();
+		settings=  arg1;
 		context=this;
 		// TODO Auto-generated method stub
 		

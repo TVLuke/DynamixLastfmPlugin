@@ -24,12 +24,10 @@ public class LastFMPluginConfigurationActivity extends Activity implements ICont
 	private final static String TAG = "LSTFM PLUGIN";
 	private Context ctx;
 	Activity activity;
-	SharedPreferences prefs =null;
 	
 	@Override
 	public void destroyView() throws Exception 
 	{
-		
 		
 	}
 
@@ -37,7 +35,7 @@ public class LastFMPluginConfigurationActivity extends Activity implements ICont
 	public View initializeView(Context context, final ContextPluginRuntime arg1, int arg2) throws Exception 
 	{
 
-		Log.i(TAG, "version 7.0");
+		Log.i(TAG, "version 8.0");
 		ctx=context;
 		activity=this;
 		// Discover our screen size for proper formatting 
@@ -50,55 +48,42 @@ public class LastFMPluginConfigurationActivity extends Activity implements ICont
         text.setText("Username");
         
         final EditText username = new EditText(ctx);
-        prefs = context.getSharedPreferences(Constants.PREFS, 0);
-        if(prefs!=null)
+        ContextPluginSettings settings = arg1.getPluginFacade().getContextPluginSettings(arg1.getSessionId());
+        if(settings!=null)
         {
-        	String u = prefs.getString(Constants.USERNAME, "");
-        	username.setText(u);
-        }
-        else
-        {
-        	Log.d(TAG, "prefs are null. second try:");
-        	prefs = arg1.getSecuredContext().getSharedPreferences(Constants.PREFS, 0);
-            if(prefs!=null)
-            {
-            	String u = prefs.getString(Constants.USERNAME, "");
-            	username.setText(u);
-            }
-            else
-            {
-            	Log.d(TAG, "prefs are still null, third try:");
-            	try
-            	{
-            		prefs= this.getSharedPreferences(Constants.PREFS, 0);
-            	}
-            	catch(Exception e)
-            	{
-            		Log.e(TAG, "error "+e.getMessage());
-            	}
-            	if(prefs!=null)
-                {
-                	String u = prefs.getString(Constants.USERNAME, "");
-                	username.setText(u);
-                }
-                else
-                {
-                    	Log.d(TAG, "I am out of options here...");
-                }
-            }
-            ContextPluginSettings settings = arg1.getParentPlugin().getContextPluginSettings();
-            if(settings!=null)
-            {
             	Log.d(TAG, "got Settings");
             	String u = settings.get(Constants.USERNAME);
             	if(u!=null)
             	{
             		username.setText(u);
             	}
+            	else
+            	{
+            		username.setText("");
+            	}
             }
-        	
-        }
-        
+            else
+            {
+            	settings = LastFMPluginRuntime.settings;
+                if(settings!=null)
+                {
+                	Log.d(TAG, "got Settings");
+                	String u = settings.get(Constants.USERNAME);
+                	if(u!=null)
+                	{
+                		username.setText(u);
+                	}
+                	else
+                	{
+                		username.setText("");
+                	}
+                }
+                else
+                {
+                	Log.d(TAG, "settings are zero");
+                }
+            }
+        	        
         Button b2 = new Button(context);
        	b2.setText("Save");
         b2.setOnClickListener(new View.OnClickListener() 
@@ -106,7 +91,7 @@ public class LastFMPluginConfigurationActivity extends Activity implements ICont
             public void onClick(View v)
             {
             	String x = username.getEditableText().toString();
-            	ContextPluginSettings settings = arg1.getParentPlugin().getContextPluginSettings();
+            	 ContextPluginSettings settings = arg1.getPluginFacade().getContextPluginSettings(arg1.getSessionId());
             	settings.put(Constants.USERNAME, x);
             	//TODO: finish()
             	arg1.getPluginFacade().setPluginConfiguredStatus(arg1.getSessionId(), true);
