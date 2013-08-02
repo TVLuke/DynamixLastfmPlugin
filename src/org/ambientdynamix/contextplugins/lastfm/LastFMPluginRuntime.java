@@ -23,7 +23,7 @@ public class LastFMPluginRuntime extends AutoReactiveContextPluginRuntime
 	private final static String TAG = "LSTFM PLUGIN";
 	private static LastFMPluginRuntime context;
 	public static String lastfmaccount="";
-	public static SharedPreferences prefs;
+	public static ContextPluginSettings settings;
 
 	@Override
 	public void start() 
@@ -65,11 +65,10 @@ public class LastFMPluginRuntime extends AutoReactiveContextPluginRuntime
 	{
 		if(contextInfoType.equals("org.ambientdynamix.contextplugins.context.info.environment.currentsong"))
 		{
-			prefs = getSecuredContext().getSharedPreferences(Constants.PREFS, 0);
-			if(prefs!=null)
+			if(settings!=null)
 			{
 				Log.d(TAG, "prefs are not null");
-				String username = prefs.getString(Constants.USERNAME, "");
+				String username = settings.get(Constants.USERNAME);
 				SecuredContextInfo aci= new SecuredContextInfo(new CurrentSongContextInfo(username), PrivacyRiskLevel.LOW);
 				sendContextEvent(requestId, aci, 180000);
 			}
@@ -100,7 +99,7 @@ public class LastFMPluginRuntime extends AutoReactiveContextPluginRuntime
 	public void init(PowerScheme arg0, ContextPluginSettings arg1) throws Exception 
 	{
 		Log.d(TAG, "init");
-		prefs = getSecuredContext().getSharedPreferences(Constants.PREFS, 0);
+		settings=this.getParentPlugin().getContextPluginSettings();
 		context=this;
 		// TODO Auto-generated method stub
 		

@@ -1,6 +1,7 @@
 package org.ambientdynamix.contextplugins.lastfm;
 
 import org.ambientdynamix.api.contextplugin.ContextPluginRuntime;
+import org.ambientdynamix.api.contextplugin.ContextPluginSettings;
 import org.ambientdynamix.api.contextplugin.IContextPluginConfigurationViewFactory;
 
 import android.app.Activity;
@@ -36,7 +37,7 @@ public class LastFMPluginConfigurationActivity extends Activity implements ICont
 	public View initializeView(Context context, final ContextPluginRuntime arg1, int arg2) throws Exception 
 	{
 
-		Log.i(TAG, "version 6.0");
+		Log.i(TAG, "version 7.0");
 		ctx=context;
 		activity=this;
 		// Discover our screen size for proper formatting 
@@ -82,17 +83,18 @@ public class LastFMPluginConfigurationActivity extends Activity implements ICont
                 }
                 else
                 {
-                	prefs = LastFMPluginRuntime.prefs;
-                	if(prefs!=null)
-                    {
-                    	String u = prefs.getString(Constants.USERNAME, "");
-                    	username.setText(u);
-                    }
-                    else
-                    {
                     	Log.d(TAG, "I am out of options here...");
-                    }
                 }
+            }
+            ContextPluginSettings settings = arg1.getParentPlugin().getContextPluginSettings();
+            if(settings!=null)
+            {
+            	Log.d(TAG, "got Settings");
+            	String u = settings.get(Constants.USERNAME);
+            	if(u!=null)
+            	{
+            		username.setText(u);
+            	}
             }
         	
         }
@@ -104,12 +106,8 @@ public class LastFMPluginConfigurationActivity extends Activity implements ICont
             public void onClick(View v)
             {
             	String x = username.getEditableText().toString();
-            	if(prefs!=null)
-            	{
-            		Editor edit = prefs.edit();
-            		edit.putString(Constants.USERNAME, x);
-            		edit.commit();
-            	}
+            	ContextPluginSettings settings = arg1.getParentPlugin().getContextPluginSettings();
+            	settings.put(Constants.USERNAME, x);
             	//TODO: finish()
             	arg1.getPluginFacade().setPluginConfiguredStatus(arg1.getSessionId(), true);
             	activity.finish();
