@@ -98,7 +98,7 @@ public class LastFMPluginRuntime extends AutoReactiveContextPluginRuntime
 	@Override
 	public void init(PowerScheme arg0, ContextPluginSettings arg1) throws Exception 
 	{
-		Log.d(TAG, "init 9");
+		Log.d(TAG, "init 11");
 		if(arg1!=null)
 		{
 			Log.d(TAG, "settings are not null and now get stored as a static variable");
