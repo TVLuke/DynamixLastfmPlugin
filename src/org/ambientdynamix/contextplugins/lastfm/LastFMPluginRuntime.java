@@ -98,8 +98,27 @@ public class LastFMPluginRuntime extends AutoReactiveContextPluginRuntime
 	@Override
 	public void init(PowerScheme arg0, ContextPluginSettings arg1) throws Exception 
 	{
-		Log.d(TAG, "init");
-		settings=  arg1;
+		Log.d(TAG, "init 9");
+		if(arg1!=null)
+		{
+			Log.d(TAG, "settings are not null and now get stored as a static variable");
+			settings=  arg1;
+			Log.d(TAG, "they are also stored via dynamix");
+			getPluginFacade().storeContextPluginSettings(getSessionId(), settings);
+		}
+		else
+		{
+			Log.d(TAG, "settings given to this method are null");
+			 settings =  getPluginFacade().getContextPluginSettings(getSessionId());
+			 if(settings!=null)
+			 {
+				 Log.d(TAG, "ok that worked");
+			 }
+			 else
+			 {
+				 Log.d(TAG, "the settings are still null");
+			 }
+		}
 		context=this;
 		// TODO Auto-generated method stub
 		
