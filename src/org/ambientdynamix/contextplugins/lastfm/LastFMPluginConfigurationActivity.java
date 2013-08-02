@@ -36,7 +36,7 @@ public class LastFMPluginConfigurationActivity extends Activity implements ICont
 	public View initializeView(Context context, final ContextPluginRuntime arg1, int arg2) throws Exception 
 	{
 
-		Log.i(TAG, "version 5.0");
+		Log.i(TAG, "version 6.0");
 		ctx=context;
 		activity=this;
 		// Discover our screen size for proper formatting 
