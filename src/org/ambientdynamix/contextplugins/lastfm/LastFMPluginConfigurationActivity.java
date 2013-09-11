@@ -64,7 +64,7 @@ public class LastFMPluginConfigurationActivity extends Activity implements ICont
         text.setText("Username");
         
         TextView text2 = new TextView(ctx);
-        text.setText("Pssword (not obligatory, needed for scrobble action)");
+        text2.setText("Pssword (not obligatory, needed for scrobble action)");
         
         final EditText username = new EditText(ctx);
         ContextPluginSettings settings = arg1.getPluginFacade().getContextPluginSettings(arg1.getSessionId());
@@ -166,6 +166,13 @@ public class LastFMPluginConfigurationActivity extends Activity implements ICont
 	       rootLayout.addView(username,  new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,
 	        		FrameLayout.LayoutParams.WRAP_CONTENT));
 	 
+	       rootLayout.addView(text2,  new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,
+	        		FrameLayout.LayoutParams.WRAP_CONTENT));
+	 
+	       rootLayout.addView(password,  new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,
+	        		FrameLayout.LayoutParams.WRAP_CONTENT));
+	 
+	       
 	       rootLayout.addView(b2,  new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,
 	        		FrameLayout.LayoutParams.WRAP_CONTENT));
 	 
