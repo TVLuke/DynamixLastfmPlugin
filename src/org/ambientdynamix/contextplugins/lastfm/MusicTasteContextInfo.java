@@ -14,7 +14,7 @@ import org.ambientdynamix.contextplugins.info.meta.ISong;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class MusicTasteContextInfo implements IContextInfo, IMusicTasteContextInfo
+public class MusicTasteContextInfo implements IContextInfo
 {
 
 	private final String TAG = Constants.TAG;
@@ -123,28 +123,28 @@ public class MusicTasteContextInfo implements IContextInfo, IMusicTasteContextIn
 		return formats;
 	}
 
-	@Override
+	
 	public ArrayList<ISong> getFavoritSongs() 
 	{
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
+	
 	public HashMap<String, Integer> top100Albums() 
 	{
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
+	
 	public HashMap<IArtist, Integer> top100Artists() 
 	{
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
+	
 	public HashMap<ISong, Integer> top100tracks() 
 	{
 		// TODO Auto-generated method stub

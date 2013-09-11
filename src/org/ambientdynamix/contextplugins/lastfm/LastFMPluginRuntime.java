@@ -231,6 +231,7 @@ public class LastFMPluginRuntime extends AutoReactiveContextPluginRuntime
 	
 	public static Song checkForCurrentSong(String uid)
 	{
+		Log.d(TAG, "checkforCurrentSong");
 		Song x = null;
 		
 		String url="http://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user="+uid+"&api_key="+Constants.API_KEY;

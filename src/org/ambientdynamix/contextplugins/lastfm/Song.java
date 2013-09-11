@@ -24,7 +24,7 @@ import org.ambientdynamix.contextplugins.info.meta.ISong;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class Song  implements Parcelable, ISong 
+public class Song  implements Parcelable
 {
 
 	private final String TAG = Constants.TAG;
@@ -135,14 +135,7 @@ public class Song  implements Parcelable, ISong
 		return result;
 	}
 
-	@Override
-	public IArtist getArtist() 
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
+	
 	public int getPlaycount() 
 	{
 		return playcount;

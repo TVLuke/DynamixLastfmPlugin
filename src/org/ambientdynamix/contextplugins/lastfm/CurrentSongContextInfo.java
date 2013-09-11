@@ -26,7 +26,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.Log;
 
-public class CurrentSongContextInfo implements IContextInfo, ICurrentSongContextInfo
+public class CurrentSongContextInfo implements IContextInfo
 {
 
 	private final String TAG = Constants.TAG;
@@ -47,7 +47,7 @@ public class CurrentSongContextInfo implements IContextInfo, ICurrentSongContext
 		
 	CurrentSongContextInfo(String username)
 	{
-		Log.d(TAG, "create CurrentSongContextInfo Object");
+		Log.d(TAG, "create CurrentSongContextInfo Object for "+username);
 		song = LastFMPluginRuntime.checkForCurrentSong(username);
 		Log.d(TAG, "create CurrentSongContextInfo Object2");
 	}
@@ -132,19 +132,19 @@ public class CurrentSongContextInfo implements IContextInfo, ICurrentSongContext
 		return formats;
 	}
 
-	@Override
+
 	public String getName() 
 	{
 		return song.getTitle();
 	}
 
-	@Override
+
 	public String getArtist() 
 	{
 		return song.getArtistName();
 	}
 
-	@Override
+
 	public int getLength() 
 	{
 		return song.getLength();

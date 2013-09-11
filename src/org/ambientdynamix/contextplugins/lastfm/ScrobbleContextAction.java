@@ -16,7 +16,7 @@ import de.umass.lastfm.scrobble.ScrobbleResult;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class ScrobbleContextAction  implements IContextInfo, IScrobleContextAction
+public class ScrobbleContextAction  implements IContextInfo
 {
 
 	private final String TAG = Constants.TAG;
@@ -79,7 +79,7 @@ public class ScrobbleContextAction  implements IContextInfo, IScrobleContextActi
 		return null;
 	}
 
-	@Override
+	
 	public void scrobble(String trackName, String artistName, String username, String psw) 
 	{
 		Session session = null;
