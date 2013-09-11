@@ -85,10 +85,11 @@ public class ScrobbleContextAction  implements IContextInfo
 	{
 		Session session = null;
 		Log.d(TAG, "><");
+		//Caller.getInstance().setCache(null);
 		try
 		{
 			Log.d(TAG, ">x<");
-			Caller.getInstance().setCache(null);
+			//Caller.getInstance().setCache(null);
 			Log.d(TAG, ">xx<");
 			session = Authenticator.getMobileSession(username, psw, Constants.API_KEY, Constants.API_SECRET);
 			Log.d(TAG, ">xxx<");
