@@ -2,6 +2,9 @@
 This plug-in can be used to extract current and historical music-listening habits of a user. It uses the last.fm API and only works if the user has configured the plug-in 
 with his or her user name and if he or she has a public last.fm profile.
 
+The last.fm Plugin provides action as well as information data types. It can provide information on the currently playing song as well as on the music taste of a user. It is 
+able to scrobble data (write data into the last.fm database of the user) which can be understood as an action in virtual space.
+
 Plug-in ID: org.ambientdynamix.contextplugins.lastfm  
 
 ### Supported Context Type
