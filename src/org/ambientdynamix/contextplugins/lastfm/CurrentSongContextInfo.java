@@ -24,6 +24,7 @@ import org.ambientdynamix.contextplugins.context.info.environment.ICurrentSongCo
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
 
 public class CurrentSongContextInfo implements IContextInfo, ICurrentSongContextInfo
 {
@@ -46,7 +47,9 @@ public class CurrentSongContextInfo implements IContextInfo, ICurrentSongContext
 		
 	CurrentSongContextInfo(String username)
 	{
+		Log.d(TAG, "create CurrentSongContextInfo Object");
 		song = LastFMPluginRuntime.checkForCurrentSong(username);
+		Log.d(TAG, "create CurrentSongContextInfo Object2");
 	}
 	
 	public CurrentSongContextInfo(Parcel in) 

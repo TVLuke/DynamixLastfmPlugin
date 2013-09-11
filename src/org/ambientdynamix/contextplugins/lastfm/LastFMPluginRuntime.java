@@ -86,10 +86,13 @@ public class LastFMPluginRuntime extends AutoReactiveContextPluginRuntime
 		{
 			if(settings!=null)
 			{
-				Log.d(TAG, "prefs are not null");
+				Log.d(TAG, "prefs are not null x");
 				String username = settings.get(Constants.USERNAME);
+				Log.d(TAG, "username="+username);
 				SecuredContextInfo aci= new SecuredContextInfo(new CurrentSongContextInfo(username), PrivacyRiskLevel.MEDIUM);
+				Log.d(TAG, "---");
 				sendContextEvent(requestId, aci, 180000);
+				Log.d(TAG, "done with sending context");
 			}
 			else
 			{
