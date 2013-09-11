@@ -13,6 +13,7 @@ import org.ambientdynamix.contextplugins.info.meta.ISong;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
 
 public class MusicTasteContextInfo implements IContextInfo
 {
@@ -36,6 +37,10 @@ public class MusicTasteContextInfo implements IContextInfo
 	public MusicTasteContextInfo(String uid)
 	{
 		 top100tracks = LastFMPluginRuntime.getTop100Tracks(uid);
+		 for(int i=0; i<top100tracks.size(); i++)
+		 {
+			 Log.d(TAG, top100tracks.get(i).getArtistName()+"-"+top100tracks.get(i).getTitle());
+		 }
 	}
 	
 	@Override

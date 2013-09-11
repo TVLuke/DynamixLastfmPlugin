@@ -245,7 +245,7 @@ public class LastFMPluginRuntime extends AutoReactiveContextPluginRuntime
 			while(childrenIterator.hasNext())
             {
 				Element child = childrenIterator.next(); 
-                Log.d(TAG, ""+child.getName());
+                //Log.d(TAG, ""+child.getName());
                 List<Element> grandchildren = child.getChildren();
                 Iterator<Element> grandchildrenIterator = grandchildren.iterator();
                 boolean gotit=false;
@@ -315,7 +315,7 @@ public class LastFMPluginRuntime extends AutoReactiveContextPluginRuntime
 			while(childrenIterator.hasNext())
             {
 				Element child = childrenIterator.next(); 
-                Log.d(TAG, ""+child.getName());
+                //Log.d(TAG, ""+child.getName());
                 List<Element> grandchildren = child.getChildren();
                 Iterator<Element> grandchildrenIterator = grandchildren.iterator();
                 while(grandchildrenIterator.hasNext())
@@ -349,7 +349,7 @@ public class LastFMPluginRuntime extends AutoReactiveContextPluginRuntime
                 	}
                 	if(grandchild.getName().equals("toptags"))
                 	{
-                		Log.d(TAG, grandchild.getText());
+                		//Log.d(TAG, grandchild.getText());
                 		Log.d(TAG, "toptags...");
                 		List<Element> ggclist = grandchild.getChildren();
                 		Iterator<Element> ggcit = ggclist.iterator();
@@ -390,60 +390,43 @@ public class LastFMPluginRuntime extends AutoReactiveContextPluginRuntime
                 Iterator<Element> grandchildrenIterator = grandchildren.iterator();
                 while(grandchildrenIterator.hasNext())
                 {
-            		String title="";
-            		String artist="";
-            		String album="";
-            		int duration=0;
-            		int playcount=0;
-            		String tags="";
                 	Element grandchild = grandchildrenIterator.next();
-                	Log.d(TAG, ""+grandchild.getName());
-                	if(grandchild.getName().equals("name"))
+                	if(grandchild.getName().equals("track") && grandchild.hasAttributes())
                 	{
-                		Log.d(TAG, grandchild.getText());
-                		title=grandchild.getText();
-                	}
-                	if(grandchild.getName().equals("duration"))
-                	{
-                		if(!grandchild.getText().equals(""))
-                		{
-                			Log.d(TAG, grandchild.getText());
-                			Log.d(TAG, "trytoparse");
-                			duration = Integer.parseInt(grandchild.getText());
-                			Log.d(TAG, "duration="+duration); 
-                		}
-                	}
-                	if(grandchild.getName().equals("playcount"))
-                	{
-                		if(!grandchild.getText().equals(""))
-                		{
-                			playcount = Integer.parseInt(grandchild.getText());
-                		}
-                	}
-                	if(grandchild.getName().equals("artist"))
-                	{
-                		Log.d(TAG, grandchild.getText());
-                		artist = grandchild.getChild("name").getText();
-                	}
-                	if(grandchild.getName().equals("album"))
-                	{
-                		Log.d(TAG, grandchild.getText());
-                		album = grandchild.getChild("title").getText();
-                	}
-                	if(grandchild.getName().equals("toptags"))
-                	{
-                		Log.d(TAG, grandchild.getText());
-                		Log.d(TAG, "toptags...");
                 		List<Element> ggclist = grandchild.getChildren();
                 		Iterator<Element> ggcit = ggclist.iterator();
+                		String artist="";
+                		String name="";
+                		Song x = null;
                 		while(ggcit.hasNext())
                 		{
-                			Element ggg = ggcit.next();
-                			tags=tags+" "+ggg.getChild("name").getText();
+                			Element ggc = ggcit.next();
+                			if(ggc.getName().equals("artist"))
+                			{
+                				artist=ggc.getText();
+                			}
+                			if(ggc.getName().equals("name"))
+                			{
+                				name=ggc.getText();
+                			}
+                			if(ggc.getName().equals("mbid"))
+                			{
+                				x = songinfo(ggc.getText());
+                			}
+                			if(ggc.getName().equals("album"))
+                			{
+                				if(x!=null)
+                				{
+                					
+                				}
+                				else
+                				{
+                					x = new Song(name, artist, -999, ggc.getText(), "");
+                					top100tracks.add(x);
+                				}
+                			}
                 		}
                 	}
-        			Song x=new Song(title, artist, duration, album, tags, playcount);
-        			top100tracks.add(x);
                 }
             }
 		}
