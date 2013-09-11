@@ -416,6 +416,7 @@ public class LastFMPluginRuntime extends AutoReactiveContextPluginRuntime
                 				Log.d(TAG, "11");
                 				artist=ggc.getChild("name").getText();
                 				Log.d(TAG, "Artist="+artist);
+                				top100tracks.add(new Song(name, artist, -999, ggc.getText(), "", playcount));
                 			}
                 			if(ggc.getName().equals("name"))
                 			{
@@ -426,7 +427,6 @@ public class LastFMPluginRuntime extends AutoReactiveContextPluginRuntime
                 			{
                 				Log.d(TAG, "14 "+ggc.getText());
                 				playcount=Integer.parseInt(ggc.getText());
-                				top100tracks.add(new Song(name, artist, -999, ggc.getText(), "", playcount));
                 			}
                 		}
                 	}
