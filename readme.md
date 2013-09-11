@@ -132,6 +132,8 @@ Plug-in for the Ambient Dynamix Framework. You can find Ambient Dynamix at http:
 Using the Dynamix Plugin Builder: https://bitbucket.org/ambientlabs/dynamix-plug-in-builder
 
 Using the Dynamix Context Library: https://github.com/TVLuke/DynamixContextInterfaceLibrary
+
+Using the last.fm java library by https://code.google.com/p/lastfm-java/
 ### Copyright Notice
 Copyright (C) Institute of Telematics, Lukas Ruge
 

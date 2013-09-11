@@ -109,9 +109,9 @@ public class LastFMPluginRuntime extends AutoReactiveContextPluginRuntime
 				Log.d(TAG, "prefs are null, this is not working...");
 			}
 		}
-		if(contextInfoType.equals("org.ambientdynamix.contextplugins.context.info.environment.musictaste"))
+		if(contextInfoType.equals("org.ambientdynamix.contextplugins.context.action.data.scrobblesong"))
 		{
-			
+
 		}
 		context=this;
 	}
@@ -137,6 +137,37 @@ public class LastFMPluginRuntime extends AutoReactiveContextPluginRuntime
 					context=this;
 				}
 			}
+		}
+		if(contextInfoType.equals("org.ambientdynamix.contextplugins.context.info.environment.musictaste"))
+		{
+			//TODO
+		}
+		if(contextInfoType.equals("org.ambientdynamix.contextplugins.context.action.data.scrobblesong"))
+		{
+			if(scanConfig.containsKey("action_type"))
+			{
+				String actiontype = scanConfig.getString("action_type");
+				if(actiontype.equals("scrobble_song"))
+				{
+					if(settings!=null)
+					{
+						Log.d(TAG, "prefs are not null");
+						String username = settings.get(Constants.USERNAME);
+						String psw = settings.get(Constants.PSW);
+						if(!psw.equals(""))
+						{
+							if(scanConfig.containsKey("song_name") && scanConfig.containsKey("artist_name"))
+							{
+								String trackName =scanConfig.getString("song_name");
+								String artistName =scanConfig.getString("artist_name");
+								ScrobbleContextAction sca = new ScrobbleContextAction();
+								sca.scrobble(trackName, artistName, username, psw);
+							}
+						}
+					}
+				}
+			}
+		
 		}
 		context=this;
 	}

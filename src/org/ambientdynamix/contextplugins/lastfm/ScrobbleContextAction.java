@@ -7,6 +7,12 @@ import java.util.Set;
 import org.ambientdynamix.api.application.IContextInfo;
 import org.ambientdynamix.contextplugins.context.action.data.IScrobleContextAction;
 
+import de.umass.lastfm.Authenticator;
+import de.umass.lastfm.Caller;
+import de.umass.lastfm.Session;
+import de.umass.lastfm.Track;
+import de.umass.lastfm.scrobble.ScrobbleResult;
+
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -27,6 +33,11 @@ public class ScrobbleContextAction  implements IContextInfo, IScrobleContextActi
 				return new ScrobbleContextAction[size];
 			}
 	};
+	
+	public ScrobbleContextAction()
+	{
+		
+	}
 	
 	@Override
 	public int describeContents() 
@@ -69,9 +80,21 @@ public class ScrobbleContextAction  implements IContextInfo, IScrobleContextActi
 	}
 
 	@Override
-	public void scrobble(String trackName, String ArtistName, String username, String psw) 
+	public void scrobble(String trackName, String artistName, String username, String psw) 
 	{
-		// TODO implement scrobbling.
+		Session session = null;
+		try
+		{
+			Caller.getInstance().setCache(null);
+			session = Authenticator.getMobileSession(username, psw, Constants.API_KEY, Constants.API_SECRET);
+			int now = (int) (System.currentTimeMillis()/1000);
+			ScrobbleResult result = Track.scrobble(artistName, trackName, now, session);
+
+		}
+		catch(Exception e)
+		{
+			
+		}
 		
 	}
 
