@@ -99,11 +99,11 @@ public class LastFMPluginRuntime extends AutoReactiveContextPluginRuntime
 				Log.d(TAG, "prefs are null, this is not working...");
 			}
 		}
-		if(contextInfoType.equals("org.ambientdynamix.contextplugins.context.info.environment.musictaste"))
+		if(contextInfoType.equals("org.ambientdynamix.contextplugins.context.info.taste.musictaste"))
 		{
 			if(settings!=null)
 			{
-				Log.d(TAG, "prefs are not null");
+				Log.d(TAG, "prefs are not null y");
 				String username = settings.get(Constants.USERNAME);
 				SecuredContextInfo aci= new SecuredContextInfo(new MusicTasteContextInfo(username), PrivacyRiskLevel.MEDIUM);
 				sendContextEvent(requestId, aci, 1200000);
