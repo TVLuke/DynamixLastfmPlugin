@@ -378,57 +378,55 @@ public class LastFMPluginRuntime extends AutoReactiveContextPluginRuntime
 		final SAXBuilder builder = new SAXBuilder();
 		try 
 		{
+			Log.d(TAG, "Try");
 			Document doc = builder.build(url);
+			Log.d(TAG, "2");
 			Element root = doc.getRootElement();
+			Log.d(TAG, "3");
 			List<Element> children = root.getChildren();
+			Log.d(TAG, "4");
 			Iterator<Element> childrenIterator = children.iterator();
+			Log.d(TAG, "5");
 			while(childrenIterator.hasNext())
             {
 				Element child = childrenIterator.next(); 
                 Log.d(TAG, ""+child.getName());
                 List<Element> grandchildren = child.getChildren();
+    			Log.d(TAG, "6");
                 Iterator<Element> grandchildrenIterator = grandchildren.iterator();
                 while(grandchildrenIterator.hasNext())
                 {
+        			Log.d(TAG, "7");
                 	Element grandchild = grandchildrenIterator.next();
                 	if(grandchild.getName().equals("track") && grandchild.hasAttributes())
                 	{
                 		List<Element> ggclist = grandchild.getChildren();
+            			Log.d(TAG, "8");
                 		Iterator<Element> ggcit = ggclist.iterator();
+            			Log.d(TAG, "9");
                 		String artist="";
                 		String name="";
                 		int playcount=0;
-                		Song x = null;
+            			Log.d(TAG, "10");
                 		while(ggcit.hasNext())
                 		{
                 			Element ggc = ggcit.next();
                 			if(ggc.getName().equals("artist"))
                 			{
-                				artist=ggc.getText();
+                				Log.d(TAG, "11");
+                				artist=ggc.getChild("name").getText();
+                				Log.d(TAG, "Artist="+artist);
                 			}
                 			if(ggc.getName().equals("name"))
                 			{
+                				Log.d(TAG, "12");
                 				name=ggc.getText();
                 			}
                 			if(ggc.getName().equals("playcount"))
                 			{
+                				Log.d(TAG, "14 "+ggc.getText());
                 				playcount=Integer.getInteger(ggc.getText());
-                			}
-                			if(ggc.getName().equals("mbid"))
-                			{
-                				//x = songinfo(ggc.getText());
-                			}
-                			if(ggc.getName().equals("album"))
-                			{
-                				if(x!=null)
-                				{
-                					top100tracks.add(new Song(name, artist, -999, ggc.getText(), "", playcount));
-                				}
-                				else
-                				{
-                					x = new Song(name, artist, -999, ggc.getText(), "", playcount);
-                					top100tracks.add(x);
-                				}
+                				top100tracks.add(new Song(name, artist, -999, ggc.getText(), "", playcount));
                 			}
                 		}
                 	}
