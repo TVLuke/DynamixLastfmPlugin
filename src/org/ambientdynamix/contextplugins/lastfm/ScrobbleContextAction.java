@@ -15,6 +15,7 @@ import de.umass.lastfm.scrobble.ScrobbleResult;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
 
 public class ScrobbleContextAction  implements IContextInfo
 {
@@ -83,13 +84,20 @@ public class ScrobbleContextAction  implements IContextInfo
 	public void scrobble(String trackName, String artistName, String username, String psw) 
 	{
 		Session session = null;
+		Log.d(TAG, "><");
 		try
 		{
+			Log.d(TAG, ">x<");
 			Caller.getInstance().setCache(null);
+			Log.d(TAG, ">xx<");
 			session = Authenticator.getMobileSession(username, psw, Constants.API_KEY, Constants.API_SECRET);
+			Log.d(TAG, ">xxx<");
 			int now = (int) (System.currentTimeMillis()/1000);
+			Log.d(TAG, ">xxxx<");
 			ScrobbleResult result = Track.updateNowPlaying(artistName, trackName, session);
+			Log.d(TAG, ">xxxxx<");
 			result = Track.scrobble(artistName, trackName, now, session);
+			Log.d(TAG, ">xxxxxx<");
 
 		}
 		catch(Exception e)

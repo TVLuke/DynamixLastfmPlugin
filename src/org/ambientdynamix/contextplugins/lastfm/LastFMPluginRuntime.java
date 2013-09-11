@@ -162,6 +162,7 @@ public class LastFMPluginRuntime extends AutoReactiveContextPluginRuntime
 						{
 							if(scanConfig.containsKey("song_name") && scanConfig.containsKey("artist_name"))
 							{
+								Log.d(TAG, "-->");
 								String trackName =scanConfig.getString("song_name");
 								String artistName =scanConfig.getString("artist_name");
 								ScrobbleContextAction sca = new ScrobbleContextAction();
