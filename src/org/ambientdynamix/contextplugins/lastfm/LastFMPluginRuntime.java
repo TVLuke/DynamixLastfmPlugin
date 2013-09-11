@@ -425,7 +425,7 @@ public class LastFMPluginRuntime extends AutoReactiveContextPluginRuntime
                 			if(ggc.getName().equals("playcount"))
                 			{
                 				Log.d(TAG, "14 "+ggc.getText());
-                				playcount=Integer.getInteger(ggc.getText());
+                				playcount=Integer.parseInt(ggc.getText());
                 				top100tracks.add(new Song(name, artist, -999, ggc.getText(), "", playcount));
                 			}
                 		}

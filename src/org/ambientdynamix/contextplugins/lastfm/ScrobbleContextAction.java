@@ -88,7 +88,8 @@ public class ScrobbleContextAction  implements IContextInfo
 			Caller.getInstance().setCache(null);
 			session = Authenticator.getMobileSession(username, psw, Constants.API_KEY, Constants.API_SECRET);
 			int now = (int) (System.currentTimeMillis()/1000);
-			ScrobbleResult result = Track.scrobble(artistName, trackName, now, session);
+			ScrobbleResult result = Track.updateNowPlaying(artistName, trackName, session);
+			result = Track.scrobble(artistName, trackName, now, session);
 
 		}
 		catch(Exception e)
