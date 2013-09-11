@@ -81,6 +81,7 @@ public class LastFMPluginRuntime extends AutoReactiveContextPluginRuntime
 	@Override
 	public void handleContextRequest(UUID requestId, String contextInfoType) 
 	{
+		Log.d(TAG, "context request 1");
 		if(contextInfoType.equals("org.ambientdynamix.contextplugins.context.info.environment.currentsong"))
 		{
 			if(settings!=null)

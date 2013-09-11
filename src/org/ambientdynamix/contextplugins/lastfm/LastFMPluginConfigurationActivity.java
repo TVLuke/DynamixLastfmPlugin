@@ -110,11 +110,11 @@ public class LastFMPluginConfigurationActivity extends Activity implements ICont
             	String u = settings.get(Constants.PSW);
             	if(u!=null)
             	{
-            		username.setText(u);
+            		password.setText(u);
             	}
             	else
             	{
-            		username.setText("");
+            		password.setText("");
             	}
             }
             else
@@ -126,11 +126,11 @@ public class LastFMPluginConfigurationActivity extends Activity implements ICont
                 	String u = settings.get(Constants.PSW);
                 	if(u!=null)
                 	{
-                		username.setText(u);
+                		password.setText(u);
                 	}
                 	else
                 	{
-                		username.setText("");
+                		password.setText("");
                 	}
                 }
                 else
