@@ -321,7 +321,7 @@ public class LastFMPluginRuntime extends AutoReactiveContextPluginRuntime
                 while(grandchildrenIterator.hasNext())
                 {
                 	Element grandchild = grandchildrenIterator.next();
-                	Log.d(TAG, ""+grandchild.getName());
+                	//Log.d(TAG, ""+grandchild.getName());
                 	if(grandchild.getName().equals("name"))
                 	{
                 		Log.d(TAG, grandchild.getText());
@@ -397,6 +397,7 @@ public class LastFMPluginRuntime extends AutoReactiveContextPluginRuntime
                 		Iterator<Element> ggcit = ggclist.iterator();
                 		String artist="";
                 		String name="";
+                		int playcount=0;
                 		Song x = null;
                 		while(ggcit.hasNext())
                 		{
@@ -409,19 +410,23 @@ public class LastFMPluginRuntime extends AutoReactiveContextPluginRuntime
                 			{
                 				name=ggc.getText();
                 			}
+                			if(ggc.getName().equals("playcount"))
+                			{
+                				playcount=Integer.getInteger(ggc.getText());
+                			}
                 			if(ggc.getName().equals("mbid"))
                 			{
-                				x = songinfo(ggc.getText());
+                				//x = songinfo(ggc.getText());
                 			}
                 			if(ggc.getName().equals("album"))
                 			{
                 				if(x!=null)
                 				{
-                					
+                					top100tracks.add(new Song(name, artist, -999, ggc.getText(), "", playcount));
                 				}
                 				else
                 				{
-                					x = new Song(name, artist, -999, ggc.getText(), "");
+                					x = new Song(name, artist, -999, ggc.getText(), "", playcount);
                 					top100tracks.add(x);
                 				}
                 			}
