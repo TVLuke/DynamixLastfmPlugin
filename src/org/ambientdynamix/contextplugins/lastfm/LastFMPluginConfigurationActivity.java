@@ -37,7 +37,7 @@ public class LastFMPluginConfigurationActivity extends Activity implements ICont
 {
 
 	LinearLayout rootLayout;
-	private final static String TAG = "LSTFM PLUGIN";
+	private final String TAG = Constants.TAG;
 	private Context ctx;
 	Activity activity;
 	
@@ -51,7 +51,7 @@ public class LastFMPluginConfigurationActivity extends Activity implements ICont
 	public View initializeView(Context context, final ContextPluginRuntime arg1, int arg2) throws Exception 
 	{
 
-		Log.i(TAG, "version 11");
+		Log.i(TAG, "version 12");
 		ctx=context;
 		activity=this;
 		// Discover our screen size for proper formatting 
@@ -62,6 +62,9 @@ public class LastFMPluginConfigurationActivity extends Activity implements ICont
 		
         TextView text = new TextView(ctx);
         text.setText("Username");
+        
+        TextView text2 = new TextView(ctx);
+        text.setText("Pssword (not obligatory, needed for scrobble action)");
         
         final EditText username = new EditText(ctx);
         ContextPluginSettings settings = arg1.getPluginFacade().getContextPluginSettings(arg1.getSessionId());
@@ -99,7 +102,43 @@ public class LastFMPluginConfigurationActivity extends Activity implements ICont
                 	Log.d(TAG, "settings are zero");
                 }
             }
-        	        
+        	       
+        final EditText password = new EditText(ctx);
+        if(settings!=null)
+        {
+            	Log.d(TAG, "got Settings");
+            	String u = settings.get(Constants.PSW);
+            	if(u!=null)
+            	{
+            		username.setText(u);
+            	}
+            	else
+            	{
+            		username.setText("");
+            	}
+            }
+            else
+            {
+            	settings = LastFMPluginRuntime.settings;
+                if(settings!=null)
+                {
+                	Log.d(TAG, "got Settings");
+                	String u = settings.get(Constants.PSW);
+                	if(u!=null)
+                	{
+                		username.setText(u);
+                	}
+                	else
+                	{
+                		username.setText("");
+                	}
+                }
+                else
+                {
+                	Log.d(TAG, "settings are zero");
+                }
+            }
+        
         Button b2 = new Button(context);
        	b2.setText("Save");
         b2.setOnClickListener(new View.OnClickListener() 
@@ -109,6 +148,8 @@ public class LastFMPluginConfigurationActivity extends Activity implements ICont
             	String x = username.getEditableText().toString();
             	 ContextPluginSettings settings = arg1.getPluginFacade().getContextPluginSettings(arg1.getSessionId());
             	settings.put(Constants.USERNAME, x);
+            	String y = password.getEditableText().toString();
+            	settings.put(Constants.PSW, y);
             	//TODO: finish()
             	arg1.getPluginFacade().setPluginConfiguredStatus(arg1.getSessionId(), true);
             	activity.finish();

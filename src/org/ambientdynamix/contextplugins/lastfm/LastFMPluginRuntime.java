@@ -16,6 +16,8 @@
 
 package org.ambientdynamix.contextplugins.lastfm;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
@@ -36,7 +38,7 @@ import android.util.Log;
 
 public class LastFMPluginRuntime extends AutoReactiveContextPluginRuntime
 {
-	private final static String TAG = "LSTFM PLUGIN";
+	private final static String TAG = Constants.TAG;
 	private static LastFMPluginRuntime context;
 	public static String lastfmaccount="";
 	public static ContextPluginSettings settings;
@@ -85,13 +87,31 @@ public class LastFMPluginRuntime extends AutoReactiveContextPluginRuntime
 			{
 				Log.d(TAG, "prefs are not null");
 				String username = settings.get(Constants.USERNAME);
-				SecuredContextInfo aci= new SecuredContextInfo(new CurrentSongContextInfo(username), PrivacyRiskLevel.LOW);
+				SecuredContextInfo aci= new SecuredContextInfo(new CurrentSongContextInfo(username), PrivacyRiskLevel.MEDIUM);
 				sendContextEvent(requestId, aci, 180000);
 			}
 			else
 			{
 				Log.d(TAG, "prefs are null, this is not working...");
 			}
+		}
+		if(contextInfoType.equals("org.ambientdynamix.contextplugins.context.info.environment.musictaste"))
+		{
+			if(settings!=null)
+			{
+				Log.d(TAG, "prefs are not null");
+				String username = settings.get(Constants.USERNAME);
+				SecuredContextInfo aci= new SecuredContextInfo(new MusicTasteContextInfo(username), PrivacyRiskLevel.MEDIUM);
+				sendContextEvent(requestId, aci, 1200000);
+			}
+			else
+			{
+				Log.d(TAG, "prefs are null, this is not working...");
+			}
+		}
+		if(contextInfoType.equals("org.ambientdynamix.contextplugins.context.info.environment.musictaste"))
+		{
+			
 		}
 		context=this;
 	}
@@ -100,13 +120,23 @@ public class LastFMPluginRuntime extends AutoReactiveContextPluginRuntime
 	public void handleConfiguredContextRequest(UUID requestId, String contextInfoType, Bundle scanConfig) 
 	{
 		Log.d(TAG, "x");
-		String actiontype = scanConfig.getString("action_type");
-		if(actiontype.equals("currentsong"))
+		if(contextInfoType.equals("org.ambientdynamix.contextplugins.context.info.environment.currentsong"))
 		{
-			String username = scanConfig.getString("username");
-			SecuredContextInfo aci= new SecuredContextInfo(new CurrentSongContextInfo(username), PrivacyRiskLevel.LOW);
-			sendContextEvent(requestId, aci, 180000);
-			context=this;
+			if(scanConfig.containsKey("action_type"))
+			{
+				String actiontype = scanConfig.getString("action_type");
+				if(actiontype.equals("current_song"))
+				{
+					String username =Constants.USERNAME;
+					if(scanConfig.containsKey("user_name"))
+					{
+						username = scanConfig.getString("user_name");
+					}
+					SecuredContextInfo aci= new SecuredContextInfo(new CurrentSongContextInfo(username), PrivacyRiskLevel.LOW);
+					sendContextEvent(requestId, aci, 180000);
+					context=this;
+				}
+			}
 		}
 		context=this;
 	}
@@ -303,6 +333,90 @@ public class LastFMPluginRuntime extends AutoReactiveContextPluginRuntime
 			Log.e(TAG, "exception: "+e.getMessage());
 		}
 		return x;
+	}
+	
+	public static ArrayList<Song> getTop100Tracks(String uid)
+	{
+		ArrayList<Song> top100tracks = new ArrayList<Song>();
+		String url = "http://ws.audioscrobbler.com/2.0/?method=user.gettoptracks&user="+uid+"&api_key="+Constants.API_KEY+"&limit=100";
+		final SAXBuilder builder = new SAXBuilder();
+		try 
+		{
+			Document doc = builder.build(url);
+			Element root = doc.getRootElement();
+			List<Element> children = root.getChildren();
+			Iterator<Element> childrenIterator = children.iterator();
+			while(childrenIterator.hasNext())
+            {
+				Element child = childrenIterator.next(); 
+                Log.d(TAG, ""+child.getName());
+                List<Element> grandchildren = child.getChildren();
+                Iterator<Element> grandchildrenIterator = grandchildren.iterator();
+                while(grandchildrenIterator.hasNext())
+                {
+            		String title="";
+            		String artist="";
+            		String album="";
+            		int duration=0;
+            		int playcount=0;
+            		String tags="";
+                	Element grandchild = grandchildrenIterator.next();
+                	Log.d(TAG, ""+grandchild.getName());
+                	if(grandchild.getName().equals("name"))
+                	{
+                		Log.d(TAG, grandchild.getText());
+                		title=grandchild.getText();
+                	}
+                	if(grandchild.getName().equals("duration"))
+                	{
+                		if(!grandchild.getText().equals(""))
+                		{
+                			Log.d(TAG, grandchild.getText());
+                			Log.d(TAG, "trytoparse");
+                			duration = Integer.parseInt(grandchild.getText());
+                			Log.d(TAG, "duration="+duration); 
+                		}
+                	}
+                	if(grandchild.getName().equals("playcount"))
+                	{
+                		if(!grandchild.getText().equals(""))
+                		{
+                			playcount = Integer.parseInt(grandchild.getText());
+                		}
+                	}
+                	if(grandchild.getName().equals("artist"))
+                	{
+                		Log.d(TAG, grandchild.getText());
+                		artist = grandchild.getChild("name").getText();
+                	}
+                	if(grandchild.getName().equals("album"))
+                	{
+                		Log.d(TAG, grandchild.getText());
+                		album = grandchild.getChild("title").getText();
+                	}
+                	if(grandchild.getName().equals("toptags"))
+                	{
+                		Log.d(TAG, grandchild.getText());
+                		Log.d(TAG, "toptags...");
+                		List<Element> ggclist = grandchild.getChildren();
+                		Iterator<Element> ggcit = ggclist.iterator();
+                		while(ggcit.hasNext())
+                		{
+                			Element ggg = ggcit.next();
+                			tags=tags+" "+ggg.getChild("name").getText();
+                		}
+                	}
+        			Song x=new Song(title, artist, duration, album, tags, playcount);
+        			top100tracks.add(x);
+                }
+            }
+		}
+		catch (Exception e)
+		{
+			Log.d(TAG, "-->");
+			Log.e(TAG, "exception: "+e.getMessage());
+		}
+		return top100tracks;
 	}
 
 }

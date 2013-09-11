@@ -16,7 +16,6 @@
 
 package org.ambientdynamix.contextplugins.lastfm;
 
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -25,16 +24,15 @@ import org.ambientdynamix.contextplugins.context.info.environment.ICurrentSongCo
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.util.Log;
 
 public class CurrentSongContextInfo implements IContextInfo, ICurrentSongContextInfo
 {
 
-	private final String TAG = "TIMEPLUGIN";
+	private final String TAG = Constants.TAG;
 	Song song;
 	
 	public static Parcelable.Creator<CurrentSongContextInfo> CREATOR = new Parcelable.Creator<CurrentSongContextInfo>() 
-			{
+	{
 			public CurrentSongContextInfo createFromParcel(Parcel in) 
 			{
 				return new CurrentSongContextInfo(in);
@@ -44,7 +42,7 @@ public class CurrentSongContextInfo implements IContextInfo, ICurrentSongContext
 			{
 				return new CurrentSongContextInfo[size];
 			}
-		};
+	};
 		
 	CurrentSongContextInfo(String username)
 	{
@@ -65,7 +63,6 @@ public class CurrentSongContextInfo implements IContextInfo, ICurrentSongContext
 	@Override
 	public int describeContents() 
 	{
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
@@ -93,15 +90,15 @@ public class CurrentSongContextInfo implements IContextInfo, ICurrentSongContext
 		String result="";
 		if (format.equalsIgnoreCase("text/plain"))
 		{
-			return song.getArtist()+" - "+song.getTitle();
+			return song.getArtistName()+" - "+song.getTitle();
 		}
 		else if (format.equalsIgnoreCase("XML"))
 		{
 			result = "<track>\n"+
 					"	<name>"+song.getTitle()+"</name>\n"+
-					"	<artist>"+song.getArtist()+"</artist>\n"+
+					"	<artist>"+song.getArtistName()+"</artist>\n"+
 					"	<duration>"+song.getLength()+"</duration>\n"+
-					"	<album>"+song.getAlbum()+"</album>\n";
+					"	<album>"+song.getAlbumName()+"</album>\n";
 			String[] tags = song.getTags();
 			result=result+"	<toptags>\n";
 			for(int i=0; i<tags.length; i++)
@@ -141,7 +138,7 @@ public class CurrentSongContextInfo implements IContextInfo, ICurrentSongContext
 	@Override
 	public String getArtist() 
 	{
-		return song.getArtist();
+		return song.getArtistName();
 	}
 
 	@Override

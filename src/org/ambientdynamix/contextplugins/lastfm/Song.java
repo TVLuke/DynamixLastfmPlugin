@@ -18,17 +18,23 @@ package org.ambientdynamix.contextplugins.lastfm;
 
 import java.util.StringTokenizer;
 
+import org.ambientdynamix.contextplugins.info.meta.IArtist;
+import org.ambientdynamix.contextplugins.info.meta.ISong;
+
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class Song  implements Parcelable 
+public class Song  implements Parcelable, ISong 
 {
 
+	private final String TAG = Constants.TAG;
+	
 	String title;
 	String artist;
 	int length;
 	String album;
 	String tags;
+	int playcount=-1;
 	/**
      * Static Creator factory for Parcelable.
      */
@@ -54,6 +60,16 @@ public class Song  implements Parcelable
     	this.tags=tags;
     }
     
+    Song(String title, String artist, int length, String album, String tags, int playcount)
+    {
+    	this.title=title;
+    	this.artist=artist;
+    	this.length=length;
+    	this.album=album;
+    	this.tags=tags;
+    	this.playcount=playcount;
+    }
+    
 	@Override
 	public int describeContents() 
 	{
@@ -67,6 +83,7 @@ public class Song  implements Parcelable
 		length = in.readInt();
 		album = in.readString();
 		tags = in.readString();
+		playcount = in.readInt();
     }
     
 	@Override
@@ -77,6 +94,7 @@ public class Song  implements Parcelable
 		out.writeInt(length);
 		out.writeString(album);
 		out.writeString(tags);
+		out.writeInt(playcount);
 	}
 
 	public String getTitle() 
@@ -84,7 +102,7 @@ public class Song  implements Parcelable
 		return title;
 	}
 
-	public String getArtist() 
+	public String getArtistName() 
 	{
 		return artist;
 	}
@@ -94,7 +112,7 @@ public class Song  implements Parcelable
 		return length;
 	}
 	
-	public String getAlbum()
+	public String getAlbumName()
 	{
 		return album;
 	}
@@ -115,5 +133,18 @@ public class Song  implements Parcelable
 			count++;
 		}
 		return result;
+	}
+
+	@Override
+	public IArtist getArtist() 
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int getPlaycount() 
+	{
+		return playcount;
 	}
 }
