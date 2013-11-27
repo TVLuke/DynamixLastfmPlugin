@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: LastFM Plugin
 Bundle-SymbolicName: org.ambientdynamix.contextplugins.lastfm
 Bundle-Version: 1.0.2
-Bundle-ClassPath: .,lib/jdom-2.0.5dexed.jar
+Bundle-ClassPath: .,lib/jdom-2.0.5dexed.jar, lib/contextInterfaceLibraryDexed.jar, lib/lastfmdexed.jar
 Export-Package: org.ambientdynamix.contextplugins.lastfm
 Import-Package: org.ambientdynamix.api.application,
  org.ambientdynamix.api.contextplugin,

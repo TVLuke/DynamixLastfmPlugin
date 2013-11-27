@@ -282,7 +282,7 @@ public class LastFMPluginRuntime extends AutoReactiveContextPluginRuntime
                 				}
                 				else
                 				{
-                					x = new Song(name, artist, -999, ggc.getText(), "");
+                					x = new Song(name, artist, -999, ggc.getText(), "", "");
                 				}
                 			}
                 		}
@@ -302,6 +302,7 @@ public class LastFMPluginRuntime extends AutoReactiveContextPluginRuntime
 		Song x=null;
 		String url = "http://ws.audioscrobbler.com/2.0/?method=track.getInfo&api_key="+Constants.API_KEY+"+&mbid="+mbid;
 		String title="";
+		String id="";
 		String artist="";
 		String album="";
 		int duration=0;
@@ -323,6 +324,11 @@ public class LastFMPluginRuntime extends AutoReactiveContextPluginRuntime
                 {
                 	Element grandchild = grandchildrenIterator.next();
                 	//Log.d(TAG, ""+grandchild.getName());
+                	if(grandchild.getName().equals("id"))
+                	{
+                		Log.d(TAG, grandchild.getText());
+                		id=grandchild.getText();
+                	}
                 	if(grandchild.getName().equals("name"))
                 	{
                 		Log.d(TAG, grandchild.getText());
@@ -362,7 +368,7 @@ public class LastFMPluginRuntime extends AutoReactiveContextPluginRuntime
                 	}
                 }
             }
-			x=new Song(title, artist, duration, album, tags);
+			x=new Song(title, artist, duration, album, tags, id);
 		}
 		catch (Exception e)
 		{
@@ -417,7 +423,7 @@ public class LastFMPluginRuntime extends AutoReactiveContextPluginRuntime
                 				Log.d(TAG, "11");
                 				artist=ggc.getChild("name").getText();
                 				Log.d(TAG, "Artist="+artist);
-                				top100tracks.add(new Song(name, artist, -999, ggc.getText(), "", playcount));
+                				top100tracks.add(new Song(name, artist, -999, ggc.getText(), "", playcount, ""));
                 			}
                 			if(ggc.getName().equals("name"))
                 			{

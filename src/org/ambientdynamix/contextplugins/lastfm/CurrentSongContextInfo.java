@@ -118,6 +118,20 @@ public class CurrentSongContextInfo implements IContextInfo
 		{
 			return song.getTitle();
 		}
+		else if(format.equalsIgnoreCase("RDF/JSON"))
+		{
+			result="{\n";
+				result = result+"\"<http://www.lastfm.com/user/TVLuke>\": {\n";
+					result=result+"\"listensTo\": [\n";
+						result=result+"{\n";
+							result=result+"\"value\": \"<http://ws.audioscrobbler.com/2.0/?method=track.getInfo&api_key="+Constants.API_KEY+"&artist="+song.getArtistName().replace(" ", "+")+"&track="+song.getTitle().replace(" ", "+")+">\",\n";
+							result=result+"\"type\": \"uri\",\n";
+						result=result+"}\n";
+					result=result+"]\n";
+				result=result+"},\n";
+			result=result+"}";
+			return result;
+		}
 		else
 			return result;
 	}

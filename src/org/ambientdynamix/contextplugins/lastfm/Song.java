@@ -51,7 +51,7 @@ public class Song  implements Parcelable
 		}
     };
     
-    Song(String title, String artist, int length, String album, String tags)
+    Song(String title, String artist, int length, String album, String tags, String id)
     {
     	this.title=title;
     	this.artist=artist;
@@ -60,7 +60,7 @@ public class Song  implements Parcelable
     	this.tags=tags;
     }
     
-    Song(String title, String artist, int length, String album, String tags, int playcount)
+    Song(String title, String artist, int length, String album, String tags, int playcount, String id)
     {
     	this.title=title;
     	this.artist=artist;
