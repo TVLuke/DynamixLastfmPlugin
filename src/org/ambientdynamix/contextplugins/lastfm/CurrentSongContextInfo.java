@@ -120,16 +120,16 @@ public class CurrentSongContextInfo implements IContextInfo
 		}
 		else if(format.equalsIgnoreCase("RDF/JSON"))
 		{
-			result="{\n";
-				result = result+"\"<http://www.lastfm.com/user/TVLuke>\": {\n";
-					result=result+"\"listensTo\": [\n";
-						result=result+"{\n";
-							result=result+"\"value\": \"<http://ws.audioscrobbler.com/2.0/?method=track.getInfo&api_key="+Constants.API_KEY+"&artist="+song.getArtistName().replace(" ", "+")+"&track="+song.getTitle().replace(" ", "+")+">\",\n";
-							result=result+"\"type\": \"uri\",\n";
-						result=result+"}\n";
-					result=result+"]\n";
-				result=result+"},\n";
-			result=result+"}";
+			result="<rdf:RDF\n" +
+					"xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\"\n" +
+					"xmlns:j.0=\"http://dynamix.org/semmodel/org.ambientdynamix.contextplugins.context.info.environment.currentsong/0.1/\"\n" +
+					"xmlns:j.1=\"http://dynamix.org/semmodel/0.1/\" > \n";
+			result=result+" <rdf:Description rdf:about=\"http://www.lastfm.de/music/"+song.getArtistName().replace(" ", "+")+"/_/"+song.getTitle().replace(" ", "+")+"\">\n";
+			result=result+" <rdf:type>http://purl.org/ontology/mo/track</rdf:type>\n";
+			result=result+"<j.0:hasArtist>"+song.getArtistName()+"</j.0:hasArtist>\n" +
+					" <j.0:hasTitle>"+song.getTitle()+"</j.0:hasTitle>" +
+					" <j.0:hasDuration>"+song.getLength()+"</j.0:hasDuration>" +
+							"  </rdf:Description>\n </rdf:RDF>";
 			return result;
 		}
 		else
@@ -143,6 +143,7 @@ public class CurrentSongContextInfo implements IContextInfo
 		formats.add("text/plain");
 		formats.add("XML");
 		formats.add("JSON");
+		formats.add("RDF/JSON");
 		return formats;
 	}
 
