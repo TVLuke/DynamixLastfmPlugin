@@ -116,6 +116,41 @@ public class MusicTasteContextInfo implements IContextInfo
 			}
 			result =result+"</musictaste>";
 		}
+		else if(format.equalsIgnoreCase("RDF/XML"))
+		{
+			result="<rdf:RDF\n" +
+					"xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\"\n" +
+					"xmlns:z.0=\"http://dynamix.org/semmodel/org.ambientdynamix.contextplugins.context.info.environment.currentsong/0.1/\"\n" +
+					"xmlns:z.2=\"http://dynamix.org/semmodel/org.ambientdynamix.contextplugins.context.info.taste.musictaste/0.1/\"\n" +
+					"xmlns:z.3=\"http://dynamix.org/semmodel/0.1/\" > \n";
+			result=result+" <rdf:Description rdf:about=\"http://www.lastfm.de/music/taste_"+LastFMPluginRuntime.lastfmaccount+"\">\n";
+			result=result+" <rdf:type>http://purl.org/ontology/mo/track</rdf:type>\n";
+			for(int i=0; i<top100tracks.size(); i++)
+			{
+				Song song = top100tracks.get(i);
+				result=result+" <z.3:hasData rdf:resource=http://www.lastfm.de/music/"+song.getArtistName().replace(" ", "+")+"/_/"+song.getTitle().replace(" ", "+")+"\"/>\n";
+			}
+			result=result+"  </rdf:Description>\n ";
+			for(int i=0; i<top100tracks.size(); i++)
+			{
+				Song song = top100tracks.get(i);
+				result=result+" <rdf:Description rdf:about=\"http://www.lastfm.de/music/"+song.getArtistName().replace(" ", "+")+"/_/"+song.getTitle().replace(" ", "+")+"\">\n";
+				result=result+" <rdf:type>http://purl.org/ontology/mo/track</rdf:type>\n";
+				result=result+"<z.0:hasArtist>"+song.getArtistName()+"</z.0:hasArtist>\n" +
+						" <z.0:hasTitle>"+song.getTitle()+"</z.0:hasTitle>\n" +
+						" <z.0:hasDuration>"+song.getLength()+"</z.0:hasDuration>" +
+						" <z.0:hasPalycount>"+song.getPlaycount()+"</z.0:hasPalycount>" +
+						" <z.0:hasAlbum>"+song.getAlbumName()+"</z.0:hasAlbum>";
+						String[] tags = song.getTags();
+						for(int j=0; j<tags.length; j++)
+						{
+							result=result+" <z.0:hasTag>"+tags[j]+"</z0:hasTag>\n";
+						}
+				result=result+"  </rdf:Description>\n";
+			}
+			result=result+"</rdf:RDF>";
+			return result;
+		}
 		return result;
 	}
 
@@ -125,6 +160,7 @@ public class MusicTasteContextInfo implements IContextInfo
 		Set<String> formats = new HashSet<String>();
 		formats.add("text/plain");
 		formats.add("XML");
+		formats.add("RDF/XML");
 		return formats;
 	}
 
