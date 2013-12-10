@@ -272,6 +272,10 @@ public class LastFMPluginRuntime extends AutoReactiveContextPluginRuntime
                 			}
                 			if(ggc.getName().equals("mbid"))
                 			{
+                				if(ggc.getText().equals(""))
+                				{
+                					Log.e(TAG, "mbid is empty for some reason. This should be impossible...");
+                				}
                 				x = songinfo(ggc.getText());
                 			}
                 			if(ggc.getName().equals("album"))
@@ -297,10 +301,10 @@ public class LastFMPluginRuntime extends AutoReactiveContextPluginRuntime
 		return x;
 	}
 
-	private static Song songinfo(String mbid) 
+	private static Song songinfo(String mbidx) 
 	{
 		Song x=null;
-		String url = "http://ws.audioscrobbler.com/2.0/?method=track.getInfo&api_key="+Constants.API_KEY+"+&mbid="+mbid;
+		String url = "http://ws.audioscrobbler.com/2.0/?method=track.getInfo&api_key="+Constants.API_KEY+"+&mbid="+mbidx;
 		String title="";
 		String id="";
 		String artist="";
